@@ -4,15 +4,22 @@ export default{
     data:{
         srcDays: [],
         srcMonths: [],
-        weeks: [],
+
+        weeks0: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
+        weeks1: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
+        weeks2: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
+
+        pageIndex: 1,
 
         todayDay: 0,
         todayMonth: 0,
         todayYear: 0,
-        currentMonth: "",
-        currentYear: "",
-        firstDay: "",
-        daysInMonth: "",
+        currentMonth: 0,
+        currentYear: 0,
+        firstDay: 0,
+        daysInMonth: 0,
+
+        updating: false,
     },
 
     onInit() {
@@ -27,9 +34,11 @@ export default{
         this.currentMonth = today.getMonth();
         this.currentYear = today.getFullYear();
 
-        brightness.setKeepScreenOn({keepScreenOn: true});
+        //brightness.setKeepScreenOn({keepScreenOn: true});
 
-        this.showCalendar(this.currentMonth, this.currentYear);
+        this.showCalendar(0, this.currentMonth-1, this.currentYear);
+        this.showCalendar(1, this.currentMonth, this.currentYear);
+        this.showCalendar(2, this.currentMonth+1, this.currentYear);
     },
 
     fillConstData() {
@@ -58,7 +67,21 @@ export default{
         ];
     },
 
-    showCalendar(month, year) {
+    showCalendar(pageIndex, month, year) {
+
+        if (this.updating) return;
+        this.updating = true;
+
+        if (month == 12) {
+            year = year + 1;
+            month = 0;
+        }
+        else if (month == -1) {
+            year = year - 1;
+            month = 11;
+        }
+
+        //console.debug("page mm/yy: "+ pageIndex +", " + month +"/"+ year);
 
         this.firstDay = (new Date(year, month)).getDay();
         //console.debug("first: "+ this.firstDay);
@@ -69,12 +92,17 @@ export default{
         if (this.firstDay == 0) first = 6; // fix if 1st day is Sunday
         //console.debug("first: "+ first);
         let daysInMonth = this.daysInMonth;
-        let weeksLocal = [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']];
+        let weeksLocal;
+
+        if (pageIndex == 0) weeksLocal = this.weeks0;
+        if (pageIndex == 1) weeksLocal = this.weeks1;
+        if (pageIndex == 2) weeksLocal = this.weeks2;
+
         if (first < 7 && daysInMonth < 32 && weeksLocal.length < 7) {
             for (var i = 0; i < weeksLocal.length; i++) {
                 var week = weeksLocal[i];
                 for (var j = 0; j < week.length; j++) {
-                    if (i == 0 && j < first) {
+                    if ((i == 0 && j < first) || (date > daysInMonth && date < 38)) {
                         weeksLocal[i][j] = { txt: '', bcolor: '#c6c6c6' };
                     } else if (date <= daysInMonth) {
                         let wdayColor = '#c6c6c6';
@@ -97,42 +125,69 @@ export default{
                     }
                 }
             }
-            this.weeks = weeksLocal;
+
+            this.updating = false;
+        }
+    },
+
+    pageChange(e) {
+        if (this.pageIndex == 1 && e.index == 2) {  // [x]-[o]>[p]
+            this.showCalendar(0, this.currentMonth+1, this.currentYear);
+        }
+        if (this.pageIndex == 1 && e.index == 0) {  // [p]<[o]-[x]
+            this.showCalendar(2, this.currentMonth-1, this.currentYear);
+        }
+        if (this.pageIndex == 2 && e.index == 0) { //  [p]-[x]-[o]>
+            this.showCalendar(1, this.currentMonth+1, this.currentYear);
+        }
+        if (this.pageIndex == 0 && e.index == 1) { //  [o]>[p]-[x]
+            this.showCalendar(2, this.currentMonth+1, this.currentYear);
+        }
+        if (this.pageIndex == 0 && e.index == 2) { // <[o]-[x]-[p]
+            this.showCalendar(1, this.currentMonth-1, this.currentYear);
+        }
+        if (this.pageIndex == 2 && e.index == 1) { //  [x]-[p]<[o]
+            this.showCalendar(0, this.currentMonth-1, this.currentYear);
         }
 
+        // required to make force refresh UI
+        if (e.index == 0) this.weeks0 = this.weeks0;
+        if (e.index == 1) this.weeks1 = this.weeks1;
+        if (e.index == 2) this.weeks2 = this.weeks2;
+
+        //console.debug("pageIndex change: "+ e.index);
+        this.pageIndex = e.index;
     },
 
     touchMove(e) {
-        if (e.direction == "right")
-            this.previous();
-        else if (e.direction == "left")
-            this.next();
-        else if (e.direction == "down")
-            this.nextYear();
-        else if (e.direction == "up")
-            this.prevYear();
-
+        if (e.direction == "right")     this.previous();
+        else if (e.direction == "left") this.next();
+        if (e.direction == "down")      this.nextYear();
+        else if (e.direction == "up")   this.prevYear();
     },
 
     next() {
         this.currentYear = (this.currentMonth === 11) ? this.currentYear + 1 : this.currentYear;
         this.currentMonth = (this.currentMonth + 1) % 12;
-        this.showCalendar(this.currentMonth, this.currentYear);
     },
 
     previous() {
         this.currentYear = (this.currentMonth === 0) ? this.currentYear - 1 : this.currentYear;
         this.currentMonth = (this.currentMonth === 0) ? 11 : this.currentMonth - 1;
-        this.showCalendar(this.currentMonth, this.currentYear);
     },
 
     nextYear() {
         this.currentYear = this.currentYear + 1;
-        this.showCalendar(this.currentMonth, this.currentYear);
+        this.showCalendar(0, this.currentMonth-1, this.currentYear);
+        this.showCalendar(1, this.currentMonth, this.currentYear);
+        this.showCalendar(2, this.currentMonth+1, this.currentYear);
+
     },
 
     prevYear() {
         this.currentYear = this.currentYear - 1;
-        this.showCalendar(this.currentMonth, this.currentYear);
+        this.showCalendar(0, this.currentMonth-1, this.currentYear);
+        this.showCalendar(1, this.currentMonth, this.currentYear);
+        this.showCalendar(2, this.currentMonth+1, this.currentYear);
     },
 }

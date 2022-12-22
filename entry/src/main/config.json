@@ -3,8 +3,8 @@
     "bundleName": "com.m0tral.calendar",
     "vendor": "m0tral",
     "version": {
-      "code": 1,
-      "name": "1.0.0"
+      "code": 11,
+      "name": "1.1.0"
     }
   },
   "deviceConfig": {},

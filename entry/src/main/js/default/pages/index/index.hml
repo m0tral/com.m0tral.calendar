@@ -1,16 +1,42 @@
 <stack class="container" onswipe="touchMove">
-    <div class="stack" onswipe="touchMove">
-        <div class="daysRow">
-            <div for="{{day in srcDays}}" class="days">
-                <text class="days-text">{{day}}</text>
+    <swiper class="container" index="{{pageIndex}}" onswipe="touchMove" onchange="pageChange">
+        <div class="page">
+            <div class="daysRow">
+                <div for="{{day in srcDays}}" class="days">
+                    <text class="days-text">{{day}}</text>
+                </div>
+            </div>
+            <div class="weekRow" for="{{valueWeek in weeks0}}">
+                <div class="datestext" for="{{value in valueWeek}}">
+                    <text class="datestext" style="background-color:{{value.bcolor}}" >{{value.txt}}</text>
+                </div>
             </div>
         </div>
-        <div class="weekRow" for="{{valueWeek in weeks}}">
-            <div class="datestext" for="{{value in valueWeek}}">
-                <text class="datestext" style="background-color:{{value.bcolor}}" >{{value.txt}}</text>
+        <div class="page">
+            <div class="daysRow">
+                <div for="{{day in srcDays}}" class="days">
+                    <text class="days-text">{{day}}</text>
+                </div>
+            </div>
+            <div class="weekRow" for="{{valueWeek in weeks1}}">
+                <div class="datestext" for="{{value in valueWeek}}">
+                    <text class="datestext" style="background-color:{{value.bcolor}}" >{{value.txt}}</text>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="page">
+            <div class="daysRow">
+                <div for="{{day in srcDays}}" class="days">
+                    <text class="days-text">{{day}}</text>
+                </div>
+            </div>
+            <div class="weekRow" for="{{valueWeek in weeks2}}">
+                <div class="datestext" for="{{value in valueWeek}}">
+                    <text class="datestext" style="background-color:{{value.bcolor}}" >{{value.txt}}</text>
+                </div>
+            </div>
+        </div>
+    </swiper>
     <div class="monthyear">
         <div class="month">
             <text class="title">{{srcMonths[currentMonth]}}</text>

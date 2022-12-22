@@ -1,0 +1,24 @@
+{
+  "strings": {
+    "mon": "Sg",
+    "tue": "Te",
+    "wed": "Qu",
+    "thu": "Qi",
+    "fri": "Sx",
+    "sat": "Sa",
+    "sun": "Do",
+
+    "jan": "Jan",
+    "feb": "Fev",
+    "mar": "Mar",
+    "apr": "Abr",
+    "may": "Mai",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Ago",
+    "sep": "Set",
+    "oct": "Out",
+    "nov": "Nov",
+    "dec": "Dez"
+  }
+}

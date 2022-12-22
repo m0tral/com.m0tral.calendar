@@ -7,3 +7,5 @@ Xiaomi Watch Color2
 Xiaomi Watch S1
 Xiaomi Watch S1 Active
 
+<img src="preview.png"/>
+

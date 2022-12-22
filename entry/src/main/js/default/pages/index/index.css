@@ -45,7 +45,8 @@
 }
 .days-text {
     text-align: center;
-    font-size: 28px;
+    font-size: 24px; /* DevEco Studio test size */
+/*    font-size: 28px; !* production size *!    */
     margin-top: 6px;
     width: 55px;
     height: 50px;
@@ -58,7 +59,8 @@
 }
 .datestext {
 /*    display: flex;*/
-    font-size: 28px;
+    font-size: 24px; /* DevEco Studio test size */
+/*    font-size: 28px; !* production size *!    */
     top: 2px;
     text-align: center;
     width: 55px;

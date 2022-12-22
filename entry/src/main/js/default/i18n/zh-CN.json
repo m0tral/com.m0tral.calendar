@@ -1,6 +1,24 @@
 {
   "strings": {
-    "hello": "您好",
-    "world": "世界"
+    "mon": "Mo",
+    "tue": "Tu",
+    "wed": "Wd",
+    "thu": "Th",
+    "fri": "Fr",
+    "sat": "St",
+    "sun": "Sn",
+
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec"
   }
 }

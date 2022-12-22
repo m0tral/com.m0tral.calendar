@@ -3,11 +3,13 @@ let numbers, newNumbers;
 
 export default{
     data:{
-        srcDays: ["M", "T", "W", "T", "F", "S", "S"],
-        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        srcDays: [],
+        srcMonths: ["","","","","","","","","","","",""],
         weeks: "",
 
-        currentDisplay: "",
+        todayDay: 0,
+        todayMonth: 0,
+        todayYear: 0,
         currentMonth: "",
         currentYear: "",
         firstDay: "",
@@ -15,9 +17,15 @@ export default{
     },
 
     onInit() {
+
+        this.fillConstData();
+
         let today = new Date();
+        this.todayDay = today.getDate();
+        this.todayMonth = today.getMonth();
+        this.todayYear = today.getFullYear();
+
         this.currentMonth = today.getMonth();
-        this.currentDisplay = this.months[this.currentMonth]
         this.currentYear = today.getFullYear();
 
         brightness.setKeepScreenOn({keepScreenOn: true});
@@ -25,9 +33,35 @@ export default{
         this.showCalendar(this.currentMonth, this.currentYear);
     },
 
+    fillConstData() {
+        this.srcDays = [
+                this.$t('strings.mon'),
+                this.$t('strings.tue'),
+                this.$t('strings.wed'),
+                this.$t('strings.thu'),
+                this.$t('strings.fri'),
+                this.$t('strings.sat'),
+                this.$t('strings.sun')
+        ];
+        this.srcMonths = [
+                this.$t('strings.jan'),
+                this.$t('strings.feb'),
+                this.$t('strings.mar'),
+                this.$t('strings.apr'),
+                this.$t('strings.may'),
+                this.$t('strings.jun'),
+                this.$t('strings.jul'),
+                this.$t('strings.aug'),
+                this.$t('strings.sep'),
+                this.$t('strings.oct'),
+                this.$t('strings.nov'),
+                this.$t('strings.dec'),
+        ];
+    },
+
     showCalendar(month, year) {
+
         this.firstDay = (new Date(year, month)).getDay();
-        console.debug("first day: "+ this.firstDay);
         this.daysInMonth = 32 - new Date(year, month, 32).getDate();
 
         let date = 1;
@@ -43,10 +77,18 @@ export default{
                     } else if (date <= daysInMonth) {
                         let wdayColor = '#c6c6c6';
                         let wendColor = '#a6a6a6';
+                        let today = '#FFE182';
+                        let color = wdayColor;
+
                         if (j < 5)
-                            weeksLocal[i][j] = { txt: date, bcolor: wdayColor};
+                            color = wdayColor;
                         else
-                            weeksLocal[i][j] = { txt: date, bcolor: wendColor};
+                            color = wendColor;
+
+                        if (date == this.todayDay && this.todayMonth == month && this.todayYear == year)
+                            color = today;
+
+                        weeksLocal[i][j] = { txt: date, bcolor: color};
                         date++;
                     } else {
                         break;
@@ -68,14 +110,12 @@ export default{
     next() {
         this.currentYear = (this.currentMonth === 11) ? this.currentYear + 1 : this.currentYear;
         this.currentMonth = (this.currentMonth + 1) % 12;
-        this.currentDisplay = this.months[this.currentMonth]
         this.showCalendar(this.currentMonth, this.currentYear);
     },
 
     previous() {
         this.currentYear = (this.currentMonth === 0) ? this.currentYear - 1 : this.currentYear;
         this.currentMonth = (this.currentMonth === 0) ? 11 : this.currentMonth - 1;
-        this.currentDisplay = this.months[this.currentMonth]
         this.showCalendar(this.currentMonth, this.currentYear);
     },
 

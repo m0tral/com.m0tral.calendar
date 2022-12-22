@@ -1,24 +1,24 @@
 {
   "strings": {
     "mon": "Mo",
-    "tue": "Tu",
-    "wed": "Wd",
-    "thu": "Th",
+    "tue": "Di",
+    "wed": "Mi",
+    "thu": "Do",
     "fri": "Fr",
-    "sat": "St",
-    "sun": "Sn",
+    "sat": "Sa",
+    "sun": "So",
 
     "jan": "Jan",
     "feb": "Feb",
-    "mar": "Mar",
+    "mar": "Mär",
     "apr": "Apr",
-    "may": "May",
+    "may": "Mai",
     "jun": "Jun",
     "jul": "Jul",
     "aug": "Aug",
     "sep": "Sep",
-    "oct": "Oct",
+    "oct": "Okt",
     "nov": "Nov",
-    "dec": "Dec"
+    "dec": "Dez"
   }
 }

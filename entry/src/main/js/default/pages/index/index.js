@@ -1,11 +1,10 @@
 import brightness from '@system.brightness';
-let numbers, newNumbers;
 
 export default{
     data:{
         srcDays: [],
-        srcMonths: ["","","","","","","","","","","",""],
-        weeks: "",
+        srcMonths: [],
+        weeks: [],
 
         todayDay: 0,
         todayMonth: 0,
@@ -62,10 +61,13 @@ export default{
     showCalendar(month, year) {
 
         this.firstDay = (new Date(year, month)).getDay();
+        //console.debug("first: "+ this.firstDay);
         this.daysInMonth = 32 - new Date(year, month, 32).getDate();
 
         let date = 1;
         let first = this.firstDay - 1;
+        if (this.firstDay == 0) first = 6; // fix if 1st day is Sunday
+        //console.debug("first: "+ first);
         let daysInMonth = this.daysInMonth;
         let weeksLocal = [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']];
         if (first < 7 && daysInMonth < 32 && weeksLocal.length < 7) {
@@ -105,6 +107,11 @@ export default{
             this.previous();
         else if (e.direction == "left")
             this.next();
+        else if (e.direction == "down")
+            this.nextYear();
+        else if (e.direction == "up")
+            this.prevYear();
+
     },
 
     next() {
@@ -119,15 +126,13 @@ export default{
         this.showCalendar(this.currentMonth, this.currentYear);
     },
 
-    selectYear(e) { // Handle the swipe event.
-        if (e.direction == "right") // Swipe right to exit.
-        {
-            this.currentYear += 1;
-            this.showCalendar(this.currentMonth, this.currentYear);
-        }
-        else if (e.direction == "left") {
-            this.currentYear -= 1;
-            this.showCalendar(this.currentMonth, this.currentYear);
-        }
+    nextYear() {
+        this.currentYear = this.currentYear + 1;
+        this.showCalendar(this.currentMonth, this.currentYear);
+    },
+
+    prevYear() {
+        this.currentYear = this.currentYear - 1;
+        this.showCalendar(this.currentMonth, this.currentYear);
     },
 }

@@ -1,8 +1,8 @@
 export default {
     onCreate() {
-        console.info("Application onCreate");
+        console.info("com.m0tral.calenadar onCreate");
     },
     onDestroy() {
-        console.info("Application onDestroy");
+        console.info("com.m0tral.calenadar onDestroy");
     }
 };

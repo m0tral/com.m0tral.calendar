@@ -1,0 +1,37 @@
+{
+  "app": {
+    "bundleName": "com.m0tral.calendar",
+    "vendor": "m0tral",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "deviceType": [
+      "liteWearable"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry"
+    },
+    "abilities": [
+      {
+        "name": "default",
+        "icon": "$media:icon",
+        "label": "$string:app_title",
+        "type": "page"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "default"
+      }
+    ]
+  }
+}

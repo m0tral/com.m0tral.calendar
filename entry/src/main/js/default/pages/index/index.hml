@@ -1,0 +1,22 @@
+<stack class="container">
+    <div class="stack">
+        <div class="daysRow">
+            <div for="{{day in srcDays}}" class="days">
+                <text class="days">{{day}}</text>
+            </div>
+        </div>
+        <div class="weekRow" for="{{valueWeek in weeks}}" onswipe="touchMove">
+            <div class="datestext" for="{{value in valueWeek}}">
+                <text class="datestext" style="background-color:{{value.bcolor}}" >{{value.txt}}</text>
+            </div>
+        </div>
+    </div>
+    <div class="monthyear">
+        <div class="month">
+            <text class="title">{{currentMonth + 1}}</text>
+        </div>
+        <div class="year">
+            <text class="title">{{currentYear}}</text>
+        </div>
+    </div>
+</stack>

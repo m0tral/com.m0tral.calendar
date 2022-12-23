@@ -65,6 +65,25 @@ export default{
                 this.$t('strings.nov'),
                 this.$t('strings.dec'),
         ];
+
+        for (var i = 0; i < this.weeks0.length; i++) {
+            var week = this.weeks0[i];
+            for (var j = 0; j < week.length; j++) {
+                week[j] = { txt: '', bcolor: '#000000' };
+            }
+        }
+        for (var i = 0; i < this.weeks1.length; i++) {
+            var week = this.weeks1[i];
+            for (var j = 0; j < week.length; j++) {
+                week[j] = { txt: '', bcolor: '#000000' };
+            }
+        }
+        for (var i = 0; i < this.weeks2.length; i++) {
+            var week = this.weeks2[i];
+            for (var j = 0; j < week.length; j++) {
+                week[j] = { txt: '', bcolor: '#000000' };
+            }
+        }
     },
 
     showCalendar(pageIndex, month, year) {
@@ -98,27 +117,48 @@ export default{
         if (pageIndex == 1) weeksLocal = this.weeks1;
         if (pageIndex == 2) weeksLocal = this.weeks2;
 
+        let wdayColor = '#000000';
+        let wendColor = '#222222';
+        let today = '#60FFE852';
+        let bcolor = wdayColor;
+        //let fcolor = '#ffffff';
+
         if (first < 7 && daysInMonth < 32 && weeksLocal.length < 7) {
             for (var i = 0; i < weeksLocal.length; i++) {
                 var week = weeksLocal[i];
                 for (var j = 0; j < week.length; j++) {
-                    if ((i == 0 && j < first) || (date > daysInMonth && date < 38)) {
-                        weeksLocal[i][j] = { txt: '', bcolor: '#c6c6c6' };
+                    if ((i == 0 && j < first) || (date > daysInMonth)) {
+                        if (j > 4) {
+                            week[j].txt = '';
+                            week[j].bcolor = wendColor;
+                        }
+                        else {
+                            week[j].txt = '';
+                            week[j].bcolor = wdayColor;
+                        }
                     } else if (date <= daysInMonth) {
-                        let wdayColor = '#c6c6c6';
-                        let wendColor = '#a6a6a6';
-                        let today = '#FFE182';
-                        let color = wdayColor;
+                        //let wdayColor = '#00c6c6c6';
+                        //let wendColor = '#AFBDDA';
+                        //let today = '#FFE5D5';
+                        bcolor = wdayColor;
+                        //fcolor = '#ffffff';
 
-                        if (j < 5)
-                            color = wdayColor;
-                        else
-                            color = wendColor;
+                        if (j < 5) {
+                            bcolor = wdayColor;
+                        }
+                        else {
+                            bcolor = wendColor;
+                            //fcolor = '#ffc655';
+                        }
 
-                        if (date == this.todayDay && this.todayMonth == month && this.todayYear == year)
-                            color = today;
+                        if (date == this.todayDay && this.todayMonth == month && this.todayYear == year) {
+                            bcolor = today;
+                            //fcolor = '#ffdc00';
+                        }
 
-                        weeksLocal[i][j] = { txt: date, bcolor: color};
+                        week[j].txt = date;
+                        week[j].bcolor = bcolor;
+
                         date++;
                     } else {
                         break;
@@ -151,9 +191,9 @@ export default{
         }
 
         // required to make force refresh UI
-        if (e.index == 0) this.weeks0 = this.weeks0;
-        if (e.index == 1) this.weeks1 = this.weeks1;
-        if (e.index == 2) this.weeks2 = this.weeks2;
+        //if (e.index == 0) this.weeks0 = this.weeks0;
+        //if (e.index == 1) this.weeks1 = this.weeks1;
+        //if (e.index == 2) this.weeks2 = this.weeks2;
 
         //console.debug("pageIndex change: "+ e.index);
         this.pageIndex = e.index;

@@ -39,34 +39,70 @@
 .days {
     width: 55px;
     height: 50px;
-    border-width: 1px;
-    border-color: #414343;
-    background-color: #2D74B4;
+/*    border-width: 1px;*/
+/*    border-color: #414343;*/
+    background-color: #AA1E578A;
 }
 .days-text {
     text-align: center;
-    font-size: 24px; /* DevEco Studio test size */
-/*    font-size: 28px; !* production size *!*/
+/*    font-size: 24px; !* DevEco Studio test size *!*/
+    font-size: 28px; /* production size */
     margin-top: 6px;
     width: 55px;
     height: 50px;
     color: #e0e0e0;
 }
+.stack-month {
+    width: 466px;
+    height: 240px;
+}
+.area-month {
+    width: 466px;
+    height: 240px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0);
+}
 .weekRow {
     justify-content: center;
     width: 466px;
     height: 40px;
+    background-color: rgba(0,0,0,0);
 }
 .datestext {
 /*    display: flex;*/
-    font-size: 24px; /* DevEco Studio test size */
-/*    font-size: 28px; !* production size *!*/
+/*    font-size: 24px; !* DevEco Studio test size *!*/
+    font-size: 28px; /* production size */
     top: 2px;
     text-align: center;
     width: 55px;
     height: 40px;
-    border-width: 1px;
-    border-color: #414343;
-    color: #1D64a4;
-    background-color: #c6c6c6;
+/*    border-width: 1px;*/
+/*    border-color: #414343;*/
+/*    color: #0B518D;*/
+/*    color: #6B8499;*/
+/*    background-color: #c6c6c6;*/
+/*    background-color: #AFBDDA;*/
+}
+
+.day-weekend {/*    display: flex;*/
+/*    font-size: 24px;!* DevEco Studio test size *!*/
+    font-size: 28px; /* production size */
+    top: 2px;
+    text-align: center;
+    width: 55px;
+    height: 40px;
+    color: #ffc655;
+/*    background-color: #222222;*/
+}
+
+.weekday {
+    color: #ffffff;
+}
+.weekend {
+    color: #ffc655;
+}
+.today {
+    color: #000000;
 }

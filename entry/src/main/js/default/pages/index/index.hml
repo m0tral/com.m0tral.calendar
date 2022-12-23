@@ -1,51 +1,51 @@
 <stack class="container" onswipe="touchMove">
-    <swiper class="container" index="{{pageIndex}}" onswipe="touchMove" onchange="pageChange">
+    <swiper class="container" index="{{pageIndex}}" onswipe="touchMove" onchange="pageChange" onlongpress="onSettings">
         <div class="page">
             <div class="daysRow">
-                <div for="{{day in srcDays}}" class="days">
+                <div for="{{day in srcDays}}" class="days" style="background-color:{{daysBackColor}};">
                     <text class="days-text">{{day}}</text>
                 </div>
             </div>
             <div class="weekRow" for="{{valueWeek in weeks0}}">
-                <text class="datestext" style="background-color:{{valueWeek[0].bcolor}};">{{valueWeek[0].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[1].bcolor}};">{{valueWeek[1].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[2].bcolor}};">{{valueWeek[2].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[3].bcolor}};">{{valueWeek[3].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[4].bcolor}};">{{valueWeek[4].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[5].bcolor}};">{{valueWeek[5].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[6].bcolor}};">{{valueWeek[6].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[0].today, 0)}};">{{valueWeek[0].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[1].today, 0)}};">{{valueWeek[1].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[2].today, 0)}};">{{valueWeek[2].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[3].today, 0)}};">{{valueWeek[3].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[4].today, 0)}};">{{valueWeek[4].txt}}</text>
+                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[5].today, 1)}};">{{valueWeek[5].txt}}</text>
+                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[6].today, 1)}};">{{valueWeek[6].txt}}</text>
             </div>
         </div>
         <div class="page">
             <div class="daysRow">
-                <div for="{{day in srcDays}}" class="days">
+                <div for="{{day in srcDays}}" class="days" style="background-color:{{daysBackColor}};">
                     <text class="days-text">{{day}}</text>
                 </div>
             </div>
-            <div class="weekRow" for="{{valueWeek in weeks1}}">
-                <text class="datestext" style="background-color:{{valueWeek[0].bcolor}};">{{valueWeek[0].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[1].bcolor}};">{{valueWeek[1].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[2].bcolor}};">{{valueWeek[2].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[3].bcolor}};">{{valueWeek[3].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[4].bcolor}};">{{valueWeek[4].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[5].bcolor}};">{{valueWeek[5].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[6].bcolor}};">{{valueWeek[6].txt}}</text>
+            <div class="weekRow" for="{{vw in weeks1}}">
+                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[0].today, 0)}};">{{vw[0].txt}}</text>
+                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[1].today, 0)}};">{{vw[1].txt}}</text>
+                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[2].today, 0)}};">{{vw[2].txt}}</text>
+                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[3].today, 0)}};">{{vw[3].txt}}</text>
+                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[4].today, 0)}};">{{vw[4].txt}}</text>
+                <text class="dgw" style="color:#005080;background-color:{{getCellBackColor(vw[5].today, 1)}};">{{vw[5].txt}}</text>
+                <text class="dgw" style="color:#005080;background-color:{{getCellBackColor(vw[6].today, 1)}};">{{vw[6].txt}}</text>
             </div>
         </div>
         <div class="page">
             <div class="daysRow">
-                <div for="{{day in srcDays}}" class="days">
-                    <text class="days-text">{{day}}</text>
+                <div for="{{day in srcDays}}" class="days" style="background-color:{{daysBackColor}};">
+                    <text class="days-text" >{{day}}</text>
                 </div>
             </div>
             <div class="weekRow" for="{{valueWeek in weeks2}}">
-                <text class="datestext" style="background-color:{{valueWeek[0].bcolor}};">{{valueWeek[0].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[1].bcolor}};">{{valueWeek[1].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[2].bcolor}};">{{valueWeek[2].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[3].bcolor}};">{{valueWeek[3].txt}}</text>
-                <text class="datestext" style="background-color:{{valueWeek[4].bcolor}};">{{valueWeek[4].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[5].bcolor}};">{{valueWeek[5].txt}}</text>
-                <text class="day-weekend" style="background-color:{{valueWeek[6].bcolor}};">{{valueWeek[6].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[0].today, 0)}};">{{valueWeek[0].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[1].today, 0)}};">{{valueWeek[1].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[2].today, 0)}};">{{valueWeek[2].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[3].today, 0)}};">{{valueWeek[3].txt}}</text>
+                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[4].today, 0)}};">{{valueWeek[4].txt}}</text>
+                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[5].today, 1)}};">{{valueWeek[5].txt}}</text>
+                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[6].today, 1)}};">{{valueWeek[6].txt}}</text>
             </div>
         </div>
     </swiper>
@@ -56,5 +56,11 @@
         <div class="year">
             <text class="title">{{currentYear}}</text>
         </div>
+    </div>
+    <div class="settings" show="{{ showSettings }}">
+        <div class="menuRow" onclick="switchChange(0)"><text class="swTitle">{{ $t('strings.theme1') }}</text><input id="swTheme1" type="radio" class="switch" checked="{{swState0}}" onclick="switchChange(0)"></input></div>
+        <div class="menuRow" onclick="switchChange(1)"><text class="swTitle">{{ $t('strings.theme2') }}</text><input id="swTheme2" type="radio" class="switch" checked="{{swState1}}" onclick="switchChange(1)"></input></div>
+        <div class="menuRow" onclick="switchChange(2)"><text class="swTitle">{{ $t('strings.theme3') }}</text><input id="swTheme3" type="radio" class="switch" checked="{{swState2}}" onclick="switchChange(2)"></input></div>
+        <input type="button" class="button" value="{{ $t('strings.close') }}" onclick="exitSettings" ></input>
     </div>
 </stack>

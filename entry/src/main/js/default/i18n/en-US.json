@@ -19,6 +19,12 @@
     "sep": "Sep",
     "oct": "Oct",
     "nov": "Nov",
-    "dec": "Dec"
+    "dec": "Dec",
+
+    "theme1": "Colored",
+    "theme2": "Dark Grey",
+    "theme3": "Dark Simple",
+
+    "close": "Close"
   }
 }

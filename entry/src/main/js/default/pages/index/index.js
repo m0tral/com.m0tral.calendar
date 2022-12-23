@@ -1,4 +1,4 @@
-import brightness from '@system.brightness';
+import storage from '@system.storage';
 
 export default{
     data:{
@@ -20,10 +20,34 @@ export default{
         daysInMonth: 0,
 
         updating: false,
+        showSettings: false,
+
+
+        themeSelected: 0,
+
+        swState0: true,
+        swState1: false,
+        swState2: false,
+
+        daysBackColor: "#1E578A",
+        foreColor: "",
+        foreColorWend: "",
+
+        key: "theme",
     },
 
     onInit() {
 
+        storage.get(
+            {
+                key: this.key,
+                success: (e) => {
+                    let value = parseInt(e.value);
+                    this.updateSwitches(value);
+                },
+            });
+
+        this.daysBackColor = "#1E578A";
         this.fillConstData();
 
         let today = new Date();
@@ -35,7 +59,10 @@ export default{
         this.currentYear = today.getFullYear();
 
         //brightness.setKeepScreenOn({keepScreenOn: true});
+        this.bindData();
+    },
 
+    bindData() {
         this.showCalendar(0, this.currentMonth-1, this.currentYear);
         this.showCalendar(1, this.currentMonth, this.currentYear);
         this.showCalendar(2, this.currentMonth+1, this.currentYear);
@@ -69,19 +96,19 @@ export default{
         for (var i = 0; i < this.weeks0.length; i++) {
             var week = this.weeks0[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', bcolor: '#000000' };
+                week[j] = { txt: '', today: false };
             }
         }
         for (var i = 0; i < this.weeks1.length; i++) {
             var week = this.weeks1[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', bcolor: '#000000' };
+                week[j] = { txt: '', today: false };
             }
         }
         for (var i = 0; i < this.weeks2.length; i++) {
             var week = this.weeks2[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', bcolor: '#000000' };
+                week[j] = { txt: '', today: false };
             }
         }
     },
@@ -117,11 +144,13 @@ export default{
         if (pageIndex == 1) weeksLocal = this.weeks1;
         if (pageIndex == 2) weeksLocal = this.weeks2;
 
-        let wdayColor = '#000000';
-        let wendColor = '#222222';
-        let today = '#60FFE852';
-        let bcolor = wdayColor;
-        //let fcolor = '#ffffff';
+        //let wdayColor = this.getBackColor();
+        //let wendColor = this.getWendColor();
+        //let today = this.getBackColorToday();
+        //let bcolor = this.getBackColor();
+
+        this.foreColor = this.getForeColor();
+        this.foreColorWend = this.getForeColorWend();
 
         if (first < 7 && daysInMonth < 32 && weeksLocal.length < 7) {
             for (var i = 0; i < weeksLocal.length; i++) {
@@ -130,34 +159,22 @@ export default{
                     if ((i == 0 && j < first) || (date > daysInMonth)) {
                         if (j > 4) {
                             week[j].txt = '';
-                            week[j].bcolor = wendColor;
+                            week[j].today = false;
                         }
                         else {
                             week[j].txt = '';
-                            week[j].bcolor = wdayColor;
+                            week[j].today = false;
                         }
                     } else if (date <= daysInMonth) {
-                        //let wdayColor = '#00c6c6c6';
-                        //let wendColor = '#AFBDDA';
-                        //let today = '#FFE5D5';
-                        bcolor = wdayColor;
-                        //fcolor = '#ffffff';
-
-                        if (j < 5) {
-                            bcolor = wdayColor;
-                        }
-                        else {
-                            bcolor = wendColor;
-                            //fcolor = '#ffc655';
-                        }
-
-                        if (date == this.todayDay && this.todayMonth == month && this.todayYear == year) {
-                            bcolor = today;
-                            //fcolor = '#ffdc00';
-                        }
 
                         week[j].txt = date;
-                        week[j].bcolor = bcolor;
+
+                        if (date == this.todayDay && this.todayMonth == month && this.todayYear == year) {
+                            week[j].today = true;
+                        }
+                        else {
+                            week[j].today = false;
+                        }
 
                         date++;
                     } else {
@@ -229,5 +246,66 @@ export default{
         this.showCalendar(0, this.currentMonth-1, this.currentYear);
         this.showCalendar(1, this.currentMonth, this.currentYear);
         this.showCalendar(2, this.currentMonth+1, this.currentYear);
+    },
+
+    onSettings() {
+        this.showSettings = true;
+    },
+    exitSettings() {
+        this.showSettings = false;
+    },
+    updateSwitches(index) {
+
+        this.themeSelected = index;
+
+        if (index == 0) { this.swState0 = true; this.swState1 = false; this.swState2 = false; }
+        if (index == 1) { this.swState1 = true; this.swState0 = false; this.swState2 = false; }
+        if (index == 2) { this.swState2 = true; this.swState0 = false; this.swState1 = false; }
+
+        this.setDayBackColor();
+    },
+    switchChange(index) {
+        this.updateSwitches(index);
+        storage.set({key: this.key, value: index });
+        this.bindData();
+    },
+    setDayBackColor() {
+        if (this.themeSelected == 0) this.daysBackColor = "#1E578A";
+        if (this.themeSelected == 1) this.daysBackColor = "#AA1E578A";
+        if (this.themeSelected == 2) this.daysBackColor = "#551E578A";
+    },
+    getCellBackColor(isToday, isWeekEnd) {
+        if (isToday)
+            return this.getBackColorToday();
+
+        if (isWeekEnd)
+            return this.getBackColorWend();
+        else
+            return this.getBackColor();
+    },
+    getBackColor() {
+        if (this.themeSelected == 0) return "#c6c6c6";
+        if (this.themeSelected == 1) return "#000000";
+        if (this.themeSelected == 2) return "#000000";
+    },
+    getBackColorToday() {
+        if (this.themeSelected == 0) return "#FFe0b0";
+        if (this.themeSelected == 1) return "#80FFe050";
+        if (this.themeSelected == 2) return '#40FFe050';
+    },
+    getForeColor() {
+        if (this.themeSelected == 0) return "#005080";
+        if (this.themeSelected == 1) return "#e0e0e0";
+        if (this.themeSelected == 2) return "#e0e0e0";
+    },
+    getForeColorWend() {
+        if (this.themeSelected == 0) return "#005080";
+        if (this.themeSelected == 1) return "#ffc655";
+        if (this.themeSelected == 2) return "#e0e0e0";
+    },
+    getBackColorWend() {
+        if (this.themeSelected == 0) return "#ACB6DE";
+        if (this.themeSelected == 1) return '#222222';
+        if (this.themeSelected == 2) return '#111111';
     },
 }

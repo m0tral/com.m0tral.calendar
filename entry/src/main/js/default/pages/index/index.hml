@@ -6,14 +6,14 @@
                     <text class="days-text">{{day}}</text>
                 </div>
             </div>
-            <div class="weekRow" for="{{valueWeek in weeks0}}">
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[0].today, 0)}};">{{valueWeek[0].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[1].today, 0)}};">{{valueWeek[1].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[2].today, 0)}};">{{valueWeek[2].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[3].today, 0)}};">{{valueWeek[3].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[4].today, 0)}};">{{valueWeek[4].txt}}</text>
-                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[5].today, 1)}};">{{valueWeek[5].txt}}</text>
-                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[6].today, 1)}};">{{valueWeek[6].txt}}</text>
+            <div class="weekRow" for="{{vw in weeks0}}">
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[0] > 100, 0)}};">{{vw[0] > 100 ? vw[0]-100 : vw[0]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[1] > 100, 1)}};">{{vw[1] > 100 ? vw[1]-100 : vw[1]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[2] > 100, 2)}};">{{vw[2] > 100 ? vw[2]-100 : vw[2]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[3] > 100, 3)}};">{{vw[3] > 100 ? vw[3]-100 : vw[3]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[4] > 100, 4)}};">{{vw[4] > 100 ? vw[4]-100 : vw[4]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[5] > 100, 5)}};">{{vw[5] > 100 ? vw[5]-100 : vw[5]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[6] > 100, 6)}};">{{vw[6] > 100 ? vw[6]-100 : vw[6]}}</text>
             </div>
         </div>
         <div class="page">
@@ -23,13 +23,13 @@
                 </div>
             </div>
             <div class="weekRow" for="{{vw in weeks1}}">
-                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[0].today, 0)}};">{{vw[0].txt}}</text>
-                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[1].today, 0)}};">{{vw[1].txt}}</text>
-                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[2].today, 0)}};">{{vw[2].txt}}</text>
-                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[3].today, 0)}};">{{vw[3].txt}}</text>
-                <text class="dg1" style="color:#005080;background-color:{{getCellBackColor(vw[4].today, 0)}};">{{vw[4].txt}}</text>
-                <text class="dgw" style="color:#005080;background-color:{{getCellBackColor(vw[5].today, 1)}};">{{vw[5].txt}}</text>
-                <text class="dgw" style="color:#005080;background-color:{{getCellBackColor(vw[6].today, 1)}};">{{vw[6].txt}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[0] > 100, 0)}};">{{vw[0] > 100 ? vw[0]-100 : vw[0]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[1] > 100, 1)}};">{{vw[1] > 100 ? vw[1]-100 : vw[1]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[2] > 100, 2)}};">{{vw[2] > 100 ? vw[2]-100 : vw[2]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[3] > 100, 3)}};">{{vw[3] > 100 ? vw[3]-100 : vw[3]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[4] > 100, 4)}};">{{vw[4] > 100 ? vw[4]-100 : vw[4]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[5] > 100, 5)}};">{{vw[5] > 100 ? vw[5]-100 : vw[5]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[6] > 100, 6)}};">{{vw[6] > 100 ? vw[6]-100 : vw[6]}}</text>
             </div>
         </div>
         <div class="page">
@@ -38,23 +38,23 @@
                     <text class="days-text" >{{day}}</text>
                 </div>
             </div>
-            <div class="weekRow" for="{{valueWeek in weeks2}}">
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[0].today, 0)}};">{{valueWeek[0].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[1].today, 0)}};">{{valueWeek[1].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[2].today, 0)}};">{{valueWeek[2].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[3].today, 0)}};">{{valueWeek[3].txt}}</text>
-                <text class="dg1" style="background-color:{{getCellBackColor(valueWeek[4].today, 0)}};">{{valueWeek[4].txt}}</text>
-                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[5].today, 1)}};">{{valueWeek[5].txt}}</text>
-                <text class="dgw" style="background-color:{{getCellBackColor(valueWeek[6].today, 1)}};">{{valueWeek[6].txt}}</text>
+            <div class="weekRow" for="{{vw in weeks2}}">
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[0] > 100, 0)}};">{{vw[0] > 100 ? vw[0]-100 : vw[0]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[1] > 100, 1)}};">{{vw[1] > 100 ? vw[1]-100 : vw[1]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[2] > 100, 2)}};">{{vw[2] > 100 ? vw[2]-100 : vw[2]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[3] > 100, 3)}};">{{vw[3] > 100 ? vw[3]-100 : vw[3]}}</text>
+                <text class="dg" style="color:{{getForeColor()}};background-color:{{getCellBackColor(vw[4] > 100, 4)}};">{{vw[4] > 100 ? vw[4]-100 : vw[4]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[5] > 100, 5)}};">{{vw[5] > 100 ? vw[5]-100 : vw[5]}}</text>
+                <text class="dgw" style="color:{{getForeColorWend()}};background-color:{{getCellBackColor(vw[6] > 100, 6)}};">{{vw[6] > 100 ? vw[6]-100 : vw[6]}}</text>
             </div>
         </div>
     </swiper>
     <div class="monthyear">
         <div class="month">
-            <text class="title">{{srcMonths[currentMonth]}}</text>
+            <text class="title-m">{{srcMonths[currentMonth]}}</text>
         </div>
         <div class="year">
-            <text class="title">{{currentYear}}</text>
+            <text class="title-y">{{currentYear}}</text>
         </div>
     </div>
     <div class="settings" show="{{ showSettings }}">

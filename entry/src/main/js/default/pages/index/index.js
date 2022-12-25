@@ -1,13 +1,10 @@
 import storage from '@system.storage';
+import logger from '../../common/logger.js';
 
 export default{
     data:{
         srcDays: [],
         srcMonths: [],
-
-        weeks0: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
-        weeks1: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
-        weeks2: [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''], ['','','','','','','']],
 
         pageIndex: 1,
 
@@ -22,8 +19,11 @@ export default{
         updating: false,
         showSettings: false,
 
-
         themeSelected: 0,
+
+        weeks0: [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+        weeks1: [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
+        weeks2: [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
 
         swState0: true,
         swState1: false,
@@ -33,17 +33,18 @@ export default{
         foreColor: "",
         foreColorWend: "",
 
-        key: "theme",
+        currentThemeKey: "theme",
     },
 
     onInit() {
 
-        storage.get(
-            {
-                key: this.key,
-                success: (e) => {
-                    let value = parseInt(e.value);
-                    this.updateSwitches(value);
+//        this.sendOutHeapInfo("init");
+
+        storage.get({
+                key: this.currentThemeKey,
+                success: (data) => {
+                    let index = parseInt(data);
+                    this.updateSwitches(index);
                 },
             });
 
@@ -60,7 +61,19 @@ export default{
 
         //brightness.setKeepScreenOn({keepScreenOn: true});
         this.bindData();
+
+//        this.sendOutHeapInfo("start");
     },
+
+//    sendOutHeapInfo(src) {
+//        if(typeof getFwVersion != 'undefined' && typeof getFwVersion == "function") {
+//            // jmem heap limit
+//            //let addr = Number("0x201FE62C");
+//            //logger.sendMessage("heap limit: 0x" + getMemDword(addr));
+//            // jmem heap allocated size
+//            logger.sendMessage(src+", heap alloc: 0x" + getMemDword(0x201FE628));
+//        }
+//    },
 
     bindData() {
         this.showCalendar(0, this.currentMonth-1, this.currentYear);
@@ -96,19 +109,19 @@ export default{
         for (var i = 0; i < this.weeks0.length; i++) {
             var week = this.weeks0[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', today: false };
+                week[j] = { txt: 0, today: false };
             }
         }
         for (var i = 0; i < this.weeks1.length; i++) {
             var week = this.weeks1[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', today: false };
+                week[j] = { txt: 0, today: false };
             }
         }
         for (var i = 0; i < this.weeks2.length; i++) {
             var week = this.weeks2[i];
             for (var j = 0; j < week.length; j++) {
-                week[j] = { txt: '', today: false };
+                week[j] = { txt: 0, today: false };
             }
         }
     },
@@ -154,26 +167,20 @@ export default{
 
         if (first < 7 && daysInMonth < 32 && weeksLocal.length < 7) {
             for (var i = 0; i < weeksLocal.length; i++) {
-                var week = weeksLocal[i];
-                for (var j = 0; j < week.length; j++) {
+                for (var j = 0; j < weeksLocal[i].length; j++) {
                     if ((i == 0 && j < first) || (date > daysInMonth)) {
                         if (j > 4) {
-                            week[j].txt = '';
-                            week[j].today = false;
+                            weeksLocal[i][j] = '';
                         }
                         else {
-                            week[j].txt = '';
-                            week[j].today = false;
+                            weeksLocal[i][j] = '';
                         }
                     } else if (date <= daysInMonth) {
 
-                        week[j].txt = date;
+                        weeksLocal[i][j] = date;
 
                         if (date == this.todayDay && this.todayMonth == month && this.todayYear == year) {
-                            week[j].today = true;
-                        }
-                        else {
-                            week[j].today = false;
+                            weeksLocal[i][j] = 100 + date;
                         }
 
                         date++;
@@ -207,12 +214,8 @@ export default{
             this.showCalendar(0, this.currentMonth-1, this.currentYear);
         }
 
-        // required to make force refresh UI
-        //if (e.index == 0) this.weeks0 = this.weeks0;
-        //if (e.index == 1) this.weeks1 = this.weeks1;
-        //if (e.index == 2) this.weeks2 = this.weeks2;
+        //this.sendOutHeapInfo("page");
 
-        //console.debug("pageIndex change: "+ e.index);
         this.pageIndex = e.index;
     },
 
@@ -266,30 +269,37 @@ export default{
     },
     switchChange(index) {
         this.updateSwitches(index);
-        storage.set({key: this.key, value: index });
+        storage.set({key: this.currentThemeKey, value: index.toString() });
         this.bindData();
+
+        //this.sendOutHeapInfo("theme");
     },
     setDayBackColor() {
         if (this.themeSelected == 0) this.daysBackColor = "#1E578A";
         if (this.themeSelected == 1) this.daysBackColor = "#AA1E578A";
         if (this.themeSelected == 2) this.daysBackColor = "#551E578A";
     },
-    getCellBackColor(isToday, isWeekEnd) {
+    getCellBackColor(isToday, wday) {
         if (isToday)
             return this.getBackColorToday();
 
-        if (isWeekEnd)
-            return this.getBackColorWend();
-        else
+        if (wday < 5)
             return this.getBackColor();
+        else
+            return this.getBackColorWend();
     },
     getBackColor() {
-        if (this.themeSelected == 0) return "#c6c6c6";
+        if (this.themeSelected == 0) return "#c0d0FF";
         if (this.themeSelected == 1) return "#000000";
         if (this.themeSelected == 2) return "#000000";
     },
+    getBackColorWend() {
+        if (this.themeSelected == 0) return "#96B3FF";
+        if (this.themeSelected == 1) return "#222222";
+        if (this.themeSelected == 2) return "#202020";
+    },
     getBackColorToday() {
-        if (this.themeSelected == 0) return "#FFe0b0";
+        if (this.themeSelected == 0) return "#e0e0e0";
         if (this.themeSelected == 1) return "#80FFe050";
         if (this.themeSelected == 2) return '#40FFe050';
     },
@@ -299,13 +309,8 @@ export default{
         if (this.themeSelected == 2) return "#e0e0e0";
     },
     getForeColorWend() {
-        if (this.themeSelected == 0) return "#005080";
+        if (this.themeSelected == 0) return "#004060";
         if (this.themeSelected == 1) return "#ffc655";
         if (this.themeSelected == 2) return "#e0e0e0";
-    },
-    getBackColorWend() {
-        if (this.themeSelected == 0) return "#ACB6DE";
-        if (this.themeSelected == 1) return '#222222';
-        if (this.themeSelected == 2) return '#111111';
     },
 }

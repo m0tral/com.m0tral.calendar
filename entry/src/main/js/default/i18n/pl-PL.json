@@ -1,0 +1,30 @@
+{
+  "strings": {
+    "mon": "Po",
+    "tue": "Wt",
+    "wed": "Śr",
+    "thu": "Cz",
+    "fri": "Pt",
+    "sat": "So",
+    "sun": "Ni",
+
+    "jan": "Sty",
+    "feb": "Lut",
+    "mar": "Mar",
+    "apr": "Kwi",
+    "may": "Maj",
+    "jun": "Cze",
+    "jul": "Lip",
+    "aug": "Sie",
+    "sep": "Wrz",
+    "oct": "Paź",
+    "nov": "Lis",
+    "dec": "Gru",
+
+    "theme1": "Biało-niebieski",
+    "theme2": "Ciemnozłoty",
+    "theme3": "Ciemny prosty",
+
+    "close": "Zamknij"
+  }
+}

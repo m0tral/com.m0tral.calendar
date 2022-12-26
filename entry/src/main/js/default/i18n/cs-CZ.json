@@ -1,0 +1,30 @@
+{
+  "strings": {
+    "mon": "Po",
+    "tue": "Út",
+    "wed": "St",
+    "thu": "Čt",
+    "fri": "Pá",
+    "sat": "So",
+    "sun": "Ne",
+
+    "jan": "Led",
+    "feb": "Úno",
+    "mar": "Bře",
+    "apr": "Dub",
+    "may": "Kvě",
+    "jun": "Čvn",
+    "jul": "Čvc",
+    "aug": "Srp",
+    "sep": "Zář",
+    "oct": "Říj",
+    "nov": "Lis",
+    "dec": "Pro",
+
+    "theme1": "Bílo-modrý",
+    "theme2": "Tmavozlatý",
+    "theme3": "Tmavý jednoduchý",
+
+    "close": "Zavřít"
+  }
+}

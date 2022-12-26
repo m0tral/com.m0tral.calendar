@@ -1,0 +1,30 @@
+{
+  "strings": {
+    "mon": "Lu",
+    "tue": "Ma",
+    "wed": "Me",
+    "thu": "Je",
+    "fri": "Ve",
+    "sat": "Sa",
+    "sun": "Di",
+
+    "jan": "Jan",
+    "feb": "Fev",
+    "mar": "Mar",
+    "apr": "Avr",
+    "may": "Mai",
+    "jun": "Jui",
+    "jul": "Jul",
+    "aug": "Aou",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec",
+
+    "theme1": "Branc-bleu",
+    "theme2": "Sombre-or",
+    "theme3": "Sombre-simple",
+
+    "close": "Fermer"
+  }
+}
